@@ -1,5 +1,3 @@
-# desafio-ingreso-HA-2022
-Prueba de ingreso área desarrollo, HealthAtom 2022
 # HealthAtom code challenge #
 
 Hola! En este repositorio vas a encontrar todo lo necesario para poder evaluar y responder las preguntas de la prueba de ingreso para área de producto en Healthatom!
