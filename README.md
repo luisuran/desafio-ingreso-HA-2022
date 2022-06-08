@@ -1,6 +1,7 @@
 # HealthAtom code challenge #
 
-Hola! En este repositorio vas a encontrar todo lo necesario para poder evaluar y responder las preguntas de la prueba de ingreso para área de producto en Healthatom!
+¡Hola! En este repositorio vas a encontrar todo lo necesario para poder evaluar y responder las preguntas de la prueba de ingreso para área de
+Desarrollo en Healthatom
 
 Por favor, incluye tus respuestas en un archivo en cada subdirectorio correspondiente (`/desafioN/respuesta/`)
 
@@ -32,7 +33,7 @@ Por favor, incluye tus respuestas en un archivo en cada subdirectorio correspond
 
 ### Como ejecutar/probar ###
 
-* Usa cualquier servidor de HTML para iterpretar index.html
+* Usa cualquier servidor web para interpretar index.html
 * Nginx y apache son servidores recomendados.
 * Puede utilizar también una de las siguientes soluciones rápidas
 
@@ -44,5 +45,5 @@ Por favor, incluye tus respuestas en un archivo en cada subdirectorio correspond
 
 `php -S localhost:8000`
 
-### Si tienes dudas sobre las preguntas, no dejes de preguntar! ###
+### Si tienes dudas sobre los desafíos, no dejes de preguntar! ###
 # ¡Éxito! #
