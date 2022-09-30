@@ -4,19 +4,185 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title></title>
-		<!-- La utilización de librerías JS y/o CSS externo está PERMITIDO -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
-		<!-- TU CÓDIGO AQUÍ -->
+		<div class="container d-flex flex-column justify-content-center align-items-center">
+			<div class="step-1">
+				<form>
+					<div class="mb-3">
+						<select class="form-select recurso-select" aria-label="Default select example">
+							<option selected>Selecciona recurso</option>
+							<option value="agua">Agua</option>
+							<option value="polvora">Pólvora</option>
+							<option value="gas">Gas</option>
+							<option value="hojas_filo">Hojas (filo)</option>
+							<option value="equipo_maniobras">Equipo maniobras</option>
+					</select>
+					</div>
+				</form>
+			</div>
+
+			<hr><hr>
+
+			<div class="step-2">
+				<form id="form-2">
+					<div class="mb-3">
+						<!-- Muestro el input y el span en la misma linea -->
+						<div class="d-flex flex-row">
+							<input type="number" min="0" id="" class="form-control cantidad-input" >  
+							<span class="unidades_recursos"></span>
+						</div>
+					</div><div class="mb-3">
+						<select class="form-select recurso-select" aria-label="Default select example">
+							<option selected>Selecciona recurso</option>
+							<option value="agua">Agua</option>
+							<option value="polvora">Pólvora</option>
+							<option value="gas">Gas</option>
+							<option value="hojas_filo">Hojas (filo)</option>
+							<option value="equipo_maniobras">Equipo maniobras</option>
+						</select>
+					</div>
+					<!-- Alineo el boton a la derecha -->
+					<div class="d-flex flex-row-reverse">
+						<button type="submit" class="btn btn-success" id="submit-step-2">Ingresar</button>
+					</div>
+				</form>
+			</div>
+
+			<hr><hr>
+
+			<div class="step-3">
+				<form id="form-3" class="d-flex flex-row">
+					<div class="mb-3">
+						<select class="form-select recurso-select" aria-label="Default select example">
+							<option selected>Selecciona recurso</option>
+							<option value="agua">Agua</option>
+							<option value="polvora">Pólvora</option>
+							<option value="gas">Gas</option>
+							<option value="hojas_filo">Hojas (filo)</option>
+							<option value="equipo_maniobras">Equipo maniobras</option>
+						</select>
+					</div>
+					<div class="mb-3 d-flex flex-row">
+						<input type="number" min="0" class="form-control cantidad-input" > <span class="unidades_recursos"></span>
+					</div>
+					<button type="submit" class="btn btn-success">Ingresar</button>
+				</form>
+
+				<table class="table" id="recursos-table">
+					<thead>
+					  <tr>
+							<th scope="col">Recurso</th>
+							<th scope="col">Cantidad</th>
+							<th scope="col">Fecha ingreso</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				  </table>
+			</div>
+		</div>
+
 		<style>
-			/*
-				Incluir CSS en este bloque, en vez de un archivo externo .css, está PERMITIDO
-			*/
+			.cantidad-input {
+				margin-right: 10px;
+			}
 		</style>
-		<script type="text/javascript">
-			/*
-				Incluir JS en este bloque, en vez de un archivo externo .js, está PERMITIDO
-			*/
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+		<script>
+			const recursos_unidades = {
+				agua: 'l',
+				polvora: 'g',
+				gas: 'tubo',
+				hojas_filo: 'unidad',
+				equipo_maniobras: 'unidad'
+			}
+
+			const recursos = [];
+
+			const getRecursoObject = (recurso, cantidad) => {
+				return {
+					recurso,
+					cantidad: cantidad + ' ' + recursos_unidades[recurso],
+					fecha: new Date().toLocaleDateString()
+				}
+			}
+
+			const addRecursoToRecursos = (recurso) => {
+				recursos.push(recurso);
+			}
+
+			const addRecursosToTable = () => {
+				$('#recursos-table tbody').empty();
+				recursos.forEach((recurso) => {
+					$('#recursos-table tbody').append(`
+						<tr>
+							<td>${recurso.recurso}</td>
+							<td>${recurso.cantidad}</td>
+							<td>${recurso.fecha}</td>
+							<td class="text-center"><i class='fa fa-trash'></i></td>
+						</tr>
+					`);
+				});
+			}
+
+			$(document).ready(function(){
+				$('.step-2').hide();
+				$('.step-3').hide();
+				$('.recurso-select').change(function(){
+					$('.recurso-select').val($(this).val());
+					$('.unidades_recursos').text(recursos_unidades[$(this).val()]);
+
+					// Paso al paso 2
+					$('.step-1').hide();
+					$('.step-2').show();
+				});
+
+				$('#form-2').submit(function(e){
+					e.preventDefault();
+					$('.cantidad-input').val($('.cantidad-input').val());
+
+					const formChildren = $('#form-3').children();
+					const recurso = formChildren[0].children[0].value;
+					const cantidad = formChildren[1].children[0].value;
+
+					recursoObj = getRecursoObject(recurso, cantidad);
+
+					addRecursoToRecursos(recursoObj);
+					addRecursosToTable();
+
+					// Paso al paso 3
+					$('.step-2').hide();
+					$('.step-3').show();
+				});
+
+				$('#form-3').submit(function(e){
+					e.preventDefault();
+					const formChildren = $('#form-3').children();
+					const recurso = formChildren[0].children[0].value;
+					const cantidad = formChildren[1].children[0].value;
+
+					$('.cantidad-input').val(cantidad);
+
+					/* Agrego el recurso a la lista de recursos */
+					recursoObj = getRecursoObject(recurso, cantidad);
+
+					addRecursoToRecursos(recursoObj);
+					addRecursosToTable();
+
+					/* Si presiono el ícono de elminar, lo elimino de la lista de recursos */
+					$('#recursos-table tbody tr td i').click(function(){
+						const index = $(this).parent().parent().index();
+						recursos.splice(index, 1);
+						$(this).parent().parent().remove();
+					});
+				});
+			});
+
 		</script>
 	</body>
 </html>
